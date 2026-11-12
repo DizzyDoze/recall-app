@@ -1,19 +1,16 @@
 <div align="center">
-
 <img src="assets/icon.png" width="96" alt="Recall icon" />
 
 # Recall
 
 **Your network already knows.**
-An iOS app that maps your relationships in 3D and tells you who to message, and why.
+Recall maps every **relationship** you have, then tells you what it sees.
+
+The **bridges**, the **patterns**, the **people** going quiet.
 
 <a href="https://recallbio.app"><img src="https://img.shields.io/badge/Visit-recallbio.app-a855f7?style=for-the-badge&logo=safari&logoColor=white" height="40" alt="Visit recallbio.app" /></a>
-&nbsp;
-<a href="https://apps.apple.com/app/id6781040027"><img src="https://tools.applemarketingtools.com/api/badges/download-on-the-app-store/black/en-us" height="40" alt="Download on the App Store" /></a>
-
 </div>
 
----
 
 <table>
   <tr>
@@ -32,11 +29,8 @@ An iOS app that maps your relationships in 3D and tells you who to message, and 
 
 <div align="center">
 
-### → [recallbio.app](https://recallbio.app) ←
-
 </div>
 
----
 
 ## Status
 
@@ -125,15 +119,6 @@ Paid
 ```
 
 **2. The data wall.** People don't bring their data. If the app's value waits behind an import, a skipped import means zero value, and every feature after it is invisible. Show value before asking for anything (Recall ended up opening on a demo network for exactly this reason).
-
 **3. Validate demand before engineering.** I proved the computation works on real data. I never proved anyone would pay for it. Answer "who is it for, and why do they open it today?" before writing code.
-
 **4. Shipping solo is a whole stack of its own.** App Store review and privacy manifests, StoreKit and paywalls, Google OAuth scope verification, APNs, secrets, CI with OIDC, capacity and cost limits. Every one of these is a week the first time; none of them is the product.
 
----
-
-<div align="center">
-
-<a href="https://recallbio.app"><img src="https://img.shields.io/badge/See_it_live-recallbio.app-a855f7?style=for-the-badge" height="36" alt="recallbio.app" /></a>
-
-</div>
