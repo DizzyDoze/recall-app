@@ -4,33 +4,30 @@
 # Recall
 
 **Your network already knows.**
-Recall maps every **relationship** you have, then tells you what it sees.
-
-The **bridges**, the **patterns**, the **people** going quiet.
+Recall maps every **relationship** you have, then tells you what it sees.<br/>
+The **bridges**, the **patterns**, the people going quiet.
 
 <a href="https://recallbio.app"><img src="https://img.shields.io/badge/Visit-recallbio.app-a855f7?style=for-the-badge&logo=safari&logoColor=white" height="40" alt="Visit recallbio.app" /></a>
-</div>
-
-
-<table>
-  <tr>
-    <td align="center" width="25%"><img src="assets/graph.gif" width="200" alt="3D relationship graph" /><br/><b>3D graph</b><br/><sub>Your network as a living map; bridges and quiet ties flagged</sub></td>
-    <td align="center" width="25%"><img src="assets/insights.gif" width="200" alt="Insights" /><br/><b>Insights</b><br/><sub>Relationship momentum over an activity heatmap</sub></td>
-    <td align="center" width="25%"><img src="assets/discover.gif" width="200" alt="Discover" /><br/><b>Discover</b><br/><sub>Communities detected and lit up on the graph</sub></td>
-    <td align="center" width="25%"><img src="assets/ask.gif" width="200" alt="Ask" /><br/><b>Ask</b><br/><sub>"Who do I know in biotech?" answered live</sub></td>
-  </tr>
-  <tr>
-    <td align="center"><img src="assets/biogen.gif" width="200" alt="Biography" /><br/><b>Biographies</b><br/><sub>A story per person, rewritten as events land</sub></td>
-    <td align="center"><img src="assets/capture.gif" width="200" alt="Voice capture" /><br/><b>Voice capture</b><br/><sub>Speak a memory; facts are extracted</sub></td>
-    <td align="center"><img src="assets/drafts.gif" width="200" alt="Drafts" /><br/><b>Drafts &amp; briefings</b><br/><sub>Messages in your tone, pre-meeting summaries</sub></td>
-    <td align="center"><img src="assets/chat.gif" width="200" alt="Chat" /><br/><b>Persona chat</b><br/><sub>Talk to a profile, grounded in its timeline</sub></td>
-  </tr>
-</table>
-
-<div align="center">
 
 </div>
 
+<p align="center">
+  <img src="assets/graph.gif" width="180" alt="3D graph" title="3D graph: your network as a living map, bridges and quiet ties flagged" />
+  <img src="assets/insights.gif" width="180" alt="Insights" title="Insights: relationship momentum over an activity heatmap" />
+  <img src="assets/discover.gif" width="180" alt="Discover" title="Discover: communities detected and lit up on the graph" />
+  <img src="assets/ask.gif" width="180" alt="Ask" title="Ask: 'who do I know in biotech?' answered live" />
+  <br/>
+  <sub><b>3D graph</b> &nbsp;·&nbsp; <b>Insights</b> &nbsp;·&nbsp; <b>Discover</b> &nbsp;·&nbsp; <b>Ask</b></sub>
+</p>
+
+<p align="center">
+  <img src="assets/biogen.gif" width="180" alt="Biographies" title="Biographies: a story per person, rewritten as events land" />
+  <img src="assets/capture.gif" width="180" alt="Voice capture" title="Voice capture: speak a memory, facts are extracted" />
+  <img src="assets/drafts.gif" width="180" alt="Drafts and briefings" title="Drafts and briefings: messages in your tone, pre-meeting summaries" />
+  <img src="assets/chat.gif" width="180" alt="Persona chat" title="Persona chat: talk to a profile, grounded in its timeline" />
+  <br/>
+  <sub><b>Biographies</b> &nbsp;·&nbsp; <b>Voice capture</b> &nbsp;·&nbsp; <b>Drafts &amp; briefings</b> &nbsp;·&nbsp; <b>Persona chat</b></sub>
+</p>
 
 ## Status
 
@@ -38,18 +35,22 @@ Live on the App Store. No longer under active development. Source is private; th
 
 Recall was my first app taken end to end, solo: idea → backend → iOS → infra → App Store → push → payments.
 
-## Under the hood
+## Architecture
 
 ```
-iOS (SwiftUI, iOS 26)                     Backend (FastAPI, async)              Data
-┌──────────────────────────┐   REST/SSE   ┌─────────────────────────────┐      ┌──────────────────┐
-│ 3D graph (WebView+THREE) │ ───────────▶ │ feature packages            │ ───▶ │ Neo4j            │
-│ @Observable stores       │              │ LangGraph agents            │      │ graph + vectors  │
-│ APIClient / SSEClient    │ ◀─────────── │ SAQ worker (Redis queue)    │ ───▶ │ Redis            │
-└──────────────────────────┘    APNs      └─────────────────────────────┘      └──────────────────┘
-                                                      │
-                                                      ▼
-                                       GPT-5 · Claude Haiku · embeddings
+┌──────── iOS ─────────┐          ┌────── Backend ───────┐          ┌──────── Data ────────┐
+│ SwiftUI · iOS 26     │ REST/SSE │ FastAPI (async)      │  Cypher  │ Neo4j                │
+│ 3D graph (THREE.js)  │─────────▶│ feature packages     │─────────▶│ graph + vector index │
+│ @Observable stores   │◀─────────│ LangGraph agents     │◀─────────│ Redis                │
+│ API + SSE clients    │   APNs   │ SAQ worker           │          │ queue + cache        │
+└──────────────────────┘          └──────────────────────┘          └──────────────────────┘
+                                              │
+                                              ▼
+                                  ┌───────── AI ─────────┐
+                                  │ GPT-5 · agents       │
+                                  │ Claude Haiku · chat  │
+                                  │ OpenAI embeddings    │
+                                  └──────────────────────┘
 ```
 
 **Request path (every call, REST or streaming)**
